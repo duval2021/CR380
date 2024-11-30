@@ -1,0 +1,18 @@
+# Utiliser une image Ubuntu de base
+FROM ubuntu:latest
+
+LABEL maintainer="Groupe5"
+LABEL description="Image Ubuntu avec Apache (httpd)."
+
+# Mettre à jour le système et installer Apache
+RUN apt-get update && apt-get install -y apache2
+
+# Nettoyer les caches apt pour réduire la taille de l'image
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Exposer le port HTTP
+EXPOSE 80
+
+# Définir Apache comme service à démarrer avec le conteneur
+CMD ["apachectl", "-D", "FOREGROUND"]
+

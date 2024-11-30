@@ -1,0 +1,18 @@
+# Utiliser une image RockyLinux de base
+FROM rockylinux:latest
+
+LABEL maintainer="Groupe5"
+LABEL description="Image RockyLinux avec Apache (httpd)."
+
+# Mettre à jour le système et installer Apache
+RUN yum update -y && yum install -y httpd
+
+# Nettoyer le cache yum pour réduire la taille de l'image
+RUN yum clean all
+
+# Exposer le port HTTP
+EXPOSE 80
+
+# Définir Apache comme service à démarrer avec le conteneur
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+

@@ -1,0 +1,18 @@
+# Utiliser une image RockyLinux de base
+FROM rockylinux:latest
+
+LABEL maintainer="Groupe"
+LABEL description="Image RockyLinux avec Nginx."
+
+# Mettre à jour le système et installer Nginx
+RUN yum update -y && yum install -y epel-release && yum install -y nginx
+
+# Nettoyer le cache yum pour réduire la taille de l'image
+RUN yum clean all
+
+# Exposer le port HTTP
+EXPOSE 80
+
+# Définir Nginx comme service à démarrer avec le conteneur
+CMD ["nginx", "-g", "daemon off;"]
+
