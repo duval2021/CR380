@@ -1,0 +1,29 @@
+FROM rockylinux:9
+
+LABEL maintainer="Groupe5"
+LABEL description="Image Rocky Linux with Nginx."
+LABEL version="1.0"
+
+# Install Nginx and clean up
+RUN yum update -y && \
+    yum install -y nginx && \
+    yum clean all && \
+    rm -rf /var/cache/yum
+
+# Ensure the web content directory exists and set permissions
+RUN mkdir -p /usr/share/nginx/html && \
+    chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html
+
+# Add a default index.html file for testing
+RUN echo "Welcome to Rocky Linux Nginx!" > /usr/share/nginx/html/index.html
+
+# Define a volume for dynamic content
+VOLUME ["/usr/share/nginx/html"]
+
+# Expose the HTTP port
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
+

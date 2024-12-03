@@ -1,0 +1,29 @@
+FROM rockylinux:9
+
+LABEL maintainer="Groupe5"
+LABEL description="Image Rocky Linux with Apache (httpd)."
+LABEL version="1.0"
+
+# Install Apache and clean up
+RUN yum update -y && \
+    yum install -y httpd && \
+    yum clean all && \
+    rm -rf /var/cache/yum
+
+# Ensure the web content directory exists and set permissions
+RUN mkdir -p /var/www/html && \
+    chown -R apache:apache /var/www/html && \
+    chmod -R 755 /var/www/html
+
+# Add a default index.html file for testing
+RUN echo "Welcome to Rocky Linux Apache!" > /var/www/html/index.html
+
+# Define a volume for dynamic content
+VOLUME ["/var/www/html"]
+
+# Expose the HTTP port
+EXPOSE 80
+
+# Start Apache in the foreground
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+

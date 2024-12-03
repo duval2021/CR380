@@ -1,0 +1,29 @@
+FROM ubuntu:latest
+
+LABEL maintainer="Groupe5"
+LABEL description="Image Ubuntu with Apache (httpd)."
+LABEL version="1.0"
+
+# Install Apache and clean up
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Ensure the web content directory exists and set permissions
+RUN mkdir -p /var/www/html && \
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
+
+# Add a default index.html file for testing
+RUN echo "Welcome to Ubuntu Apache!" > /var/www/html/index.html
+
+# Define a volume for dynamic content
+VOLUME ["/var/www/html"]
+
+# Expose the HTTP port
+EXPOSE 80
+
+# Start Apache in the foreground
+CMD ["apachectl", "-D", "FOREGROUND"]
+

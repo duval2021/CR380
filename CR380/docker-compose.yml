@@ -1,0 +1,106 @@
+version: "3.8"
+
+services:
+  student-registration-1:
+    image: redhat_image_apache:v1.0
+    container_name: student-registration-1
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/student_registration.html:/var/www/html/index.html
+    expose:
+      - 80
+
+  student-registration-2:
+    image: redhat_image_apache:v1.0
+    container_name: student-registration-2
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/student_registration.html:/var/www/html/index.html
+    expose:
+      - 80
+
+  student-courses-1:
+    image: ubuntu_image_apache:v1.0
+    container_name: student-courses-1
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/student_courses.html:/var/www/html/index.html
+    expose:
+      - 80
+
+  student-courses-2:
+    image: ubuntu_image_apache:v1.0
+    container_name: student-courses-2
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/student_courses.html:/var/www/html/index.html
+    expose:
+      - 80
+
+  student-paiement-1:
+    image: rocky_image_nginx:v1.0
+    container_name: student-paiement-1
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/student_paiement.html:/usr/share/nginx/html/index.html
+    expose:
+      - 80
+
+  student-paiement-2:
+    image: rocky_image_nginx:v1.0
+    container_name: student-paiement-2
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/student_paiement.html:/usr/share/nginx/html/index.html
+    expose:
+      - 80
+
+  admin-dashboard-1:
+    image: ubuntu_image_nginx:v1.0
+    container_name: admin-dashboard-1
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/admin_dashboard.html:/usr/share/nginx/html/index.html
+    expose:
+      - 80
+
+  admin-dashboard-2:
+    image: ubuntu_image_nginx:v1.0
+    container_name: admin-dashboard-2
+    networks:
+      - app-network
+    volumes:
+      - ./Contenu_web2/admin_dashboard.html:/usr/share/nginx/html/index.html
+    expose:
+      - 80
+
+  haproxy:
+    image: haproxy:latest
+    container_name: haproxy-router
+    depends_on:
+      - student-registration-1
+      - student-registration-2
+      - student-courses-1
+      - student-courses-2
+      - student-paiement-1
+      - student-paiement-2
+      - admin-dashboard-1
+      - admin-dashboard-2
+    networks:
+      - app-network
+    ports:
+      - "8090:80"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+
+networks:
+  app-network:
+    driver: bridge
+

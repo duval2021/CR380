@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement des Frais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+        .main-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f9fbfd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 50%;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        form input, form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #dcdfe6;
+            font-size: 14px;
+        }
+        form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #2980b9;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #95a5a6;
+        }
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <h3>Options de Prêts</h3>
+            <ul>
+                <li><a href="#">OSAP (Ontario)</a></li>
+                <li><a href="#">Prêts étudiants du Québec</a></li>
+                <li><a href="#">Aide financière Colombie-Britannique</a></li>
+                <li><a href="#">Prêts fédéraux étudiants</a></li>
+            </ul>
+            <p>Explorez les différentes options de prêts et bourses pour financer vos études dans votre province.</p>
+        </div>
+        <div class="container">
+            <h1>Paiement des Frais</h1>
+            <p class="warning">
+                ⚠ Dernier jour pour payer : 31 décembre 2024. Une pénalité de 10 % s'appliquera après cette date.
+            </p>
+            <form>
+                <label for="name">Nom de l'étudiant :</label>
+                <input type="text" id="name" placeholder="Entrez votre nom complet" required>
+
+                <label for="matricule">Matricule :</label>
+                <input type="text" id="matricule" placeholder="Entrez votre matricule" required>
+
+                <label for="amount">Montant (en CAD) :</label>
+                <input type="number" id="amount" placeholder="Entrez le montant à payer" required>
+
+                <label for="payment-method">Méthode de Paiement :</label>
+                <select id="payment-method" required>
+                    <option value="" disabled selected>Choisissez une méthode</option>
+                    <option value="credit">Carte de Crédit</option>
+                    <option value="debit">Carte de Débit</option>
+                    <option value="paypal">PayPal</option>
+                </select>
+
+                <label for="card-number">Numéro de carte :</label>
+                <input type="text" id="card-number" placeholder="1234 5678 9101 1121" required>
+
+                <label for="expiry-date">Date d'expiration :</label>
+                <input type="month" id="expiry-date" required>
+
+                <label for="cvv">CVV :</label>
+                <input type="text" id="cvv" placeholder="123" required>
+
+                <button type="submit">Procéder au Paiement</button>
+            </form>
+            <footer>Université
